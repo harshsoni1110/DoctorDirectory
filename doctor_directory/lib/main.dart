@@ -23,7 +23,7 @@ class _DoctorDirectoryAppState extends State<DoctorDirectoryApp> {
         ),
       ),
       onGenerateRoute: router.generateRoute,
-      initialRoute: FirstWidgetRoute,
+      initialRoute: DoctorScreenRoute,
     );
   }
 }
