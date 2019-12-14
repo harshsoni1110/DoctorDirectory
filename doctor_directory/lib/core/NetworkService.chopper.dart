@@ -16,10 +16,15 @@ class _$NetworkService extends NetworkService {
   final definitionType = NetworkService;
 
   @override
-  Future<Response> getSpecialties(String user_key) {
+  Future<Response<Specialties>> getSpecialties(
+      {String user_key, int limit = 20, int skip}) {
     final $url = '/specialties';
-    final $params = <String, dynamic>{'user_key': user_key};
+    final $params = <String, dynamic>{
+      'user_key': user_key,
+      'limit': limit,
+      'skip': skip
+    };
     final $request = Request('GET', $url, client.baseUrl, parameters: $params);
-    return client.send<dynamic, dynamic>($request);
+    return client.send<Specialties, Specialties>($request);
   }
 }
