@@ -18,6 +18,9 @@ class _$SpecialtiesSerializer implements StructuredSerializer<Specialties> {
   Iterable<Object> serialize(Serializers serializers, Specialties object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
+      'meta',
+      serializers.serialize(object.meta,
+          specifiedType: const FullType(PageMeta)),
       'data',
       serializers.serialize(object.data,
           specifiedType:
@@ -38,6 +41,10 @@ class _$SpecialtiesSerializer implements StructuredSerializer<Specialties> {
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
+        case 'meta':
+          result.meta.replace(serializers.deserialize(value,
+              specifiedType: const FullType(PageMeta)) as PageMeta);
+          break;
         case 'data':
           result.data.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
@@ -53,12 +60,17 @@ class _$SpecialtiesSerializer implements StructuredSerializer<Specialties> {
 
 class _$Specialties extends Specialties {
   @override
+  final PageMeta meta;
+  @override
   final BuiltList<Speciality> data;
 
   factory _$Specialties([void Function(SpecialtiesBuilder) updates]) =>
       (new SpecialtiesBuilder()..update(updates)).build();
 
-  _$Specialties._({this.data}) : super._() {
+  _$Specialties._({this.meta, this.data}) : super._() {
+    if (meta == null) {
+      throw new BuiltValueNullFieldError('Specialties', 'meta');
+    }
     if (data == null) {
       throw new BuiltValueNullFieldError('Specialties', 'data');
     }
@@ -74,23 +86,29 @@ class _$Specialties extends Specialties {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Specialties && data == other.data;
+    return other is Specialties && meta == other.meta && data == other.data;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, data.hashCode));
+    return $jf($jc($jc(0, meta.hashCode), data.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('Specialties')..add('data', data))
+    return (newBuiltValueToStringHelper('Specialties')
+          ..add('meta', meta)
+          ..add('data', data))
         .toString();
   }
 }
 
 class SpecialtiesBuilder implements Builder<Specialties, SpecialtiesBuilder> {
   _$Specialties _$v;
+
+  PageMetaBuilder _meta;
+  PageMetaBuilder get meta => _$this._meta ??= new PageMetaBuilder();
+  set meta(PageMetaBuilder meta) => _$this._meta = meta;
 
   ListBuilder<Speciality> _data;
   ListBuilder<Speciality> get data =>
@@ -101,6 +119,7 @@ class SpecialtiesBuilder implements Builder<Specialties, SpecialtiesBuilder> {
 
   SpecialtiesBuilder get _$this {
     if (_$v != null) {
+      _meta = _$v.meta?.toBuilder();
       _data = _$v.data?.toBuilder();
       _$v = null;
     }
@@ -124,10 +143,13 @@ class SpecialtiesBuilder implements Builder<Specialties, SpecialtiesBuilder> {
   _$Specialties build() {
     _$Specialties _$result;
     try {
-      _$result = _$v ?? new _$Specialties._(data: data.build());
+      _$result =
+          _$v ?? new _$Specialties._(meta: meta.build(), data: data.build());
     } catch (_) {
       String _$failedField;
       try {
+        _$failedField = 'meta';
+        meta.build();
         _$failedField = 'data';
         data.build();
       } catch (e) {

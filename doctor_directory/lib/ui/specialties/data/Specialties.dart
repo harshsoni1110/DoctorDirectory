@@ -1,9 +1,10 @@
 import 'dart:convert';
 
-import 'package:built_value/built_value.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:flutter_network/core/serializers.dart';
+import 'package:flutter_network/ui/specialties/data/PageMeta.dart';
 import 'package:flutter_network/ui/specialties/data/Speciality.dart';
 
 part 'Specialties.g.dart';
@@ -16,8 +17,10 @@ part 'Specialties.g.dart';
   5. flutter package pub run build_runner
  */
 abstract class Specialties implements Built<Specialties, SpecialtiesBuilder> {
+  PageMeta get meta;
 
   BuiltList<Speciality> get data;
+
   Specialties._();
 
   factory Specialties([updates(SpecialtiesBuilder loginResponseBuilder)]) =

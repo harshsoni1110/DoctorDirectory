@@ -7,6 +7,7 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(PageMeta.serializer)
       ..add(Speciality.serializer)
       ..add(Specialties.serializer)
       ..addBuilderFactory(
