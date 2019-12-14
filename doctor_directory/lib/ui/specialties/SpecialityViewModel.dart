@@ -19,6 +19,7 @@ class SpecialityViewModel extends ChangeNotifier {
 
   int pageNo = 0;
   SpecialityViewStates viewState = SpecialityViewStates.SHOULD_FETCH;
+
   SpecialityViewModel() {
     _isLoading = true;
   }
@@ -33,16 +34,23 @@ class SpecialityViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  isLoading () {
+  isLoading() {
     return _isLoading;
   }
 
   Future<void> getSpecialties() async {
     startLoading();
-    specialtiesResponse = await NetworkService.create().getSpecialties(user_key: "356bbdc59fdfcdd9edc65f3ccb698a06", skip: listOfSpeciality.length);
-    specialties = specialtiesResponse.body;
-    listOfSpeciality.addAll(specialties.data);
-//    specialties = null;
-    stopLoading();
+    try {
+      specialtiesResponse = await NetworkService.create().getSpecialties(
+          user_key: "356bbdc59fdfcdd9edc65f3ccb698a06",
+          skip: listOfSpeciality.length);
+      if (specialtiesResponse.statusCode == 200) {
+        specialties = specialtiesResponse.body;
+        listOfSpeciality.addAll(specialties.data);
+      }
+      stopLoading();
+    } catch (e) {
+      stopLoading();
+    }
   }
 }
