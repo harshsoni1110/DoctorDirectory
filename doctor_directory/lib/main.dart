@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_network/constants/route_constants.dart';
 import 'package:flutter_network/core/router_utility.dart' as router;
+import 'package:flutter_network/ui/specialties/SpecialityViewModel.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(DoctorDirectoryApp());
 

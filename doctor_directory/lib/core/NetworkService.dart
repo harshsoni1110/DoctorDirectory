@@ -1,13 +1,14 @@
 import 'package:chopper/chopper.dart';
+import 'package:flutter_network/core/BuiltValueConverter.dart';
+import 'package:flutter_network/ui/specialties/data/Specialties.dart';
 
 part 'NetworkService.chopper.dart';
 
 @ChopperApi()
 abstract class NetworkService extends ChopperService {
   @Get(path: "/specialties")
-  Future<Response> getSpecialties(
-    @Query() String user_key
-  );
+  Future<Response<Specialties>> getSpecialties(
+      {@Query() String user_key, @Query() int limit = 20, @Query() int skip});
 
   static NetworkService create() {
     final client = ChopperClient(
@@ -16,7 +17,7 @@ abstract class NetworkService extends ChopperService {
           _$NetworkService(),
         ],
         interceptors: [HttpLoggingInterceptor()],
-        converter: JsonConverter());
+        converter: BuiltValueConverter());
 
     return _$NetworkService(client);
   }
