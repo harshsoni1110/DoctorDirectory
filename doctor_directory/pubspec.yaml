@@ -22,6 +22,8 @@ dependencies:
   chopper: ^3.0.1
   built_value: ^7.0.0
   provider: 3.2.0
+  connectivity: ^0.4.3+1
+  get_version: 0.2.0+1
 
 dev_dependencies:
   flutter_test:

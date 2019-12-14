@@ -1,12 +1,22 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_network/constants/route_constants.dart';
+import 'package:flutter_network/core/ConnectivityService.dart';
 import 'package:flutter_network/ui/doctors/DoctorListItem.dart';
 import 'package:flutter_network/ui/doctors/SpecialityItem.dart';
+import 'package:provider/provider.dart';
 
-class DoctorScreen extends StatelessWidget {
+class DoctorScreen extends StatefulWidget {
+  @override
+  _DoctorScreenState createState() => _DoctorScreenState();
+}
+
+class _DoctorScreenState extends State<DoctorScreen> {
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -87,7 +97,7 @@ class DoctorScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed(FirstWidgetRoute);
+                Navigator.of(context).pushNamed(SearchWidgetRoute);
               },
               child: Hero(
                 tag: "search",
@@ -134,7 +144,9 @@ class DoctorScreen extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            Navigator.of(context).pushNamed(SpecialtiesListRoute);
+            if (Provider.of<ConnectivityService>(context).currentConnection != ConnectivityStatus.Offline) {
+              Navigator.of(context).pushNamed(SpecialtiesListRoute);
+            }
           },
           child: Text(
             "View all",
@@ -169,7 +181,7 @@ class DoctorScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                     onTap: () {
-                      Navigator.of(context).pushNamed(FirstWidgetRoute,
+                      Navigator.of(context).pushNamed(SearchWidgetRoute,
                           arguments: "Category$index");
                     },
                     child: SpecialityItem());
@@ -222,4 +234,6 @@ class DoctorScreen extends StatelessWidget {
       ),
     );
   }
+
+
 }
