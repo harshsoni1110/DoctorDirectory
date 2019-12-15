@@ -1,0 +1,71 @@
+PODS:
+  - connectivity (0.0.1):
+    - Flutter
+    - Reachability
+  - Flutter (1.0.0)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - geolocator (5.1.5):
+    - Flutter
+  - get_version (0.0.1):
+    - Flutter
+  - google_api_availability (2.0.1):
+    - Flutter
+  - location_permissions (2.0.3):
+    - Flutter
+  - package_info (0.0.1):
+    - Flutter
+  - Reachability (3.2)
+  - sqflite (0.0.1):
+    - Flutter
+    - FMDB (~> 2.7.2)
+
+DEPENDENCIES:
+  - connectivity (from `.symlinks/plugins/connectivity/ios`)
+  - Flutter (from `Flutter`)
+  - geolocator (from `.symlinks/plugins/geolocator/ios`)
+  - get_version (from `.symlinks/plugins/get_version/ios`)
+  - google_api_availability (from `.symlinks/plugins/google_api_availability/ios`)
+  - location_permissions (from `.symlinks/plugins/location_permissions/ios`)
+  - package_info (from `.symlinks/plugins/package_info/ios`)
+  - sqflite (from `.symlinks/plugins/sqflite/ios`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - FMDB
+    - Reachability
+
+EXTERNAL SOURCES:
+  connectivity:
+    :path: ".symlinks/plugins/connectivity/ios"
+  Flutter:
+    :path: Flutter
+  geolocator:
+    :path: ".symlinks/plugins/geolocator/ios"
+  get_version:
+    :path: ".symlinks/plugins/get_version/ios"
+  google_api_availability:
+    :path: ".symlinks/plugins/google_api_availability/ios"
+  location_permissions:
+    :path: ".symlinks/plugins/location_permissions/ios"
+  package_info:
+    :path: ".symlinks/plugins/package_info/ios"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/ios"
+
+SPEC CHECKSUMS:
+  connectivity: 6e94255659cc86dcbef1d452ad3e0491bb1b3e75
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  geolocator: 80aba2bb48f8c7dfc5a8b70b9d13fc3edc8399c4
+  get_version: 2bc18c4e26a265571662cab5d38f8b50dc8c1c77
+  google_api_availability: 163b30f802e6148c67f092aa4501c90ddd8eec8d
+  location_permissions: 195ff2a1182fa9029ef3f2653156961ee5a1e40b
+  package_info: 48b108e75b8802c2d5e126f208ef540561c98aef
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
+
+PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
+
+COCOAPODS: 1.7.5
