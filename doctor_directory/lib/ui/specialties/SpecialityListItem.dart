@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_network/core/LocalDB/DoctorDirDB.dart';
 import 'package:flutter_network/ui/specialties/data/Speciality.dart';
+import 'package:provider/provider.dart';
 
 class SpecialityListItem extends StatelessWidget {
   final Speciality speciality;
@@ -9,6 +11,7 @@ class SpecialityListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var db = Provider.of<DoctorDirDB>(context);
     return Card(
       child: Container(
         child: Row(
@@ -50,6 +53,20 @@ class SpecialityListItem extends StatelessWidget {
                 ),
               ),
             ),
+            StreamBuilder<bool>(
+              stream: db.isBookmarked(speciality.uid),
+              builder: (context, snapshot) {
+                if (snapshot.hasData && snapshot.data) {
+                  return IconButton(
+                      icon: Icon(Icons.bookmark, color: Theme.of(context).primaryColor,),
+                      onPressed: () => db.removeBookmarkSpeciality(speciality.uid));
+                }
+                return IconButton(
+                    icon: Icon(Icons.bookmark_border),
+                    onPressed: () => db.bookmarkSpeciality(speciality));
+
+              },
+            )
           ],
         ),
       ),
