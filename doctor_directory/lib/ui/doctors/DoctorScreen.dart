@@ -7,6 +7,7 @@ import 'package:flutter_network/core/ConnectivityService.dart';
 import 'package:flutter_network/core/LocalDB/DoctorDirDB.dart';
 import 'package:flutter_network/ui/doctors/DoctorListItem.dart';
 import 'package:flutter_network/ui/doctors/SpecialityItem.dart';
+import 'package:flutter_network/utils/LocationDisplayWidget.dart';
 import 'package:provider/provider.dart';
 
 class DoctorScreen extends StatefulWidget {
@@ -32,11 +33,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
       iconTheme: IconThemeData(color: Colors.black),
       title: Row(
         children: <Widget>[
-          Text(
-            "Kalyninagar, Pune",
-            style: TextStyle(color: Colors.black, fontSize: 16),
-          ),
-          Icon(Icons.keyboard_arrow_down)
+          LocationDisplayWidget(),
         ],
       ),
       elevation: 0,
@@ -214,10 +211,9 @@ class _DoctorScreenState extends State<DoctorScreen> {
                           child: Text(
                             "View all",
                             style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                              color: Colors.white
-                            ),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                                color: Colors.white),
                           ),
                         )
                       ],
