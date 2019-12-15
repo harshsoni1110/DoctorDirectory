@@ -10,7 +10,7 @@ A doctor search mobile app in flutter framework.
 * Chopper API integration for Network call
 * Paginated Speciality list
 * Local DB used for bookmarking functionality
-* Bookmarked sepcialities updated on doctor's screen
+* Bookmarked sepcialities updated on doctor's screen (Streams used)
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
