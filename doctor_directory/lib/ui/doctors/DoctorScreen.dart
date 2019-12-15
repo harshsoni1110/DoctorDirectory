@@ -1,11 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_network/constants/route_constants.dart';
 import 'package:flutter_network/core/ConnectivityService.dart';
+import 'package:flutter_network/core/LocalDB/DoctorDirDB.dart';
 import 'package:flutter_network/ui/doctors/DoctorListItem.dart';
 import 'package:flutter_network/ui/doctors/SpecialityItem.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +15,6 @@ class DoctorScreen extends StatefulWidget {
 }
 
 class _DoctorScreenState extends State<DoctorScreen> {
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -117,7 +115,6 @@ class _DoctorScreenState extends State<DoctorScreen> {
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                         ),
-
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Enter a search term',
@@ -144,7 +141,8 @@ class _DoctorScreenState extends State<DoctorScreen> {
         ),
         InkWell(
           onTap: () {
-            if (Provider.of<ConnectivityService>(context).currentConnection != ConnectivityStatus.Offline) {
+            if (Provider.of<ConnectivityService>(context).currentConnection !=
+                ConnectivityStatus.Offline) {
               Navigator.of(context).pushNamed(SpecialtiesListRoute);
             }
           },
@@ -162,6 +160,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
   }
 
   renderSpecialities(BuildContext context) {
+    var db = Provider.of<DoctorDirDB>(context);
     return SliverToBoxAdapter(
       child: Column(
         children: <Widget>[
@@ -172,21 +171,59 @@ class _DoctorScreenState extends State<DoctorScreen> {
                 const EdgeInsets.only(left: 24, right: 24, top: 16, bottom: 16),
           ),
           Container(
+//            color: Colors.red,
             height: 120.0,
             margin:
                 const EdgeInsets.only(left: 24, right: 24, top: 16, bottom: 16),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return InkWell(
+
+            child: StreamBuilder<List<SpecialityBookmarkData>>(
+                stream: db.getAllSpecialities,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData && snapshot.data.length > 0) {
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, index) {
+                        return SpecialityItem(
+                          speciality: snapshot.data[index],
+                        );
+                      },
+                    );
+                  }
+                  return InkWell(
                     onTap: () {
-                      Navigator.of(context).pushNamed(SearchWidgetRoute,
-                          arguments: "Category$index");
+                      Navigator.of(context).pushNamed(SpecialtiesListRoute);
                     },
-                    child: SpecialityItem());
-              },
-            ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "No specialities bookmarked!!",
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                        RaisedButton(
+                          onPressed: () {
+                            if (Provider.of<ConnectivityService>(context)
+                                    .currentConnection !=
+                                ConnectivityStatus.Offline) {
+                              Navigator.of(context)
+                                  .pushNamed(SpecialtiesListRoute);
+                            }
+                          },
+                          color: Theme.of(context).primaryColor,
+                          child: Text(
+                            "View all",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Colors.white
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                }),
           ),
         ],
       ),
@@ -234,6 +271,4 @@ class _DoctorScreenState extends State<DoctorScreen> {
       ),
     );
   }
-
-
 }
